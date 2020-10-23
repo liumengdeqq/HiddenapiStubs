@@ -1,7 +1,10 @@
-import com.android.builder.core.BuilderConstants
 
 apply plugin: 'com.android.library'
 
+apply plugin: 'com.github.dcendents.android-maven'
+
+
+group='com.github.liumengdeqq'
 android {
     compileSdkVersion 28
 }
