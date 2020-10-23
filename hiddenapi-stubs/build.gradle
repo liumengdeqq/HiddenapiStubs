@@ -1,0 +1,34 @@
+import com.android.builder.core.BuilderConstants
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+}
+boolean isReleaseBuildType(){
+    for(String s : gradle.startParameter.taskNames) {
+        if (s.contains("Release") | s.contains("release")) {
+            return true
+        }
+    }
+    return false
+}
+task makeStubJar(type: Jar){
+    baseName 'framework-stub'
+     if(isReleaseBuildType()){
+         from("${projectDir}/build/intermediates/javac/release/classes/")
+     }else{
+         from("${projectDir}/build/intermediates/javac/debug/classes/")
+     }
+
+    into('')
+    destinationDir file("${projectDir}/libs")
+    exclude('BuildConfig.class', 'R.class')
+    exclude{ it.name.startsWith('R$')}
+}
+
+afterEvaluate {
+    tasks.withType(JavaCompile) {
+        it.finalizedBy(makeStubJar)
+    }
+}

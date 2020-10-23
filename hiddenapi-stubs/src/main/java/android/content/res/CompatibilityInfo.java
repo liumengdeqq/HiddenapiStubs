@@ -14,5 +14,5 @@ public class CompatibilityInfo implements Parcelable {
 		throw new UnsupportedOperationException("STUB");
 	}
 
-	public static final Creator<CompatibilityInfo> CREATOR = null;
+	public static final Parcelable.Creator<CompatibilityInfo> CREATOR = null;
 }
